@@ -58,7 +58,7 @@ const [data, setData] = useState(Data)
       
       <FlatList data={data} renderItem={({item})=>(
         <View>
-            <Pressable onPress={()=> navigation.navigate('Reviewdetails', {id: item.id})}>
+            <Pressable onPress={()=> navigation.navigate('Reviewdetails', {id: item.id, name: item.name})}>
             <View style={styles.reviewsContainer}>
                 <Text style={styles.reviewRating}>
                     {item.rating}
