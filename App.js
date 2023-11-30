@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useEffect, useCallback } from 'react';
 import About from './screens/About';
 import * as SplashScreen from 'expo-splash-screen';
-
+import { globalStyles } from './styles/global.js'
 
 
 let fontLoader = ()=>{
@@ -58,24 +58,14 @@ export default function App() {
   }
 
     return (
-      <View style={styles.container} onLayout={onLayoutRootView}>
+      <View style={globalStyles.container} onLayout={onLayoutRootView}>
         <StatusBar style="auto" />
         <Home />
-        <Text style={styles.mytxt}>Hello world</Text>
+        <Text style={globalStyles.textStyles}>Hello world</Text>
       </View>
     )
  
   
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mytxt: {
-    fontFamily: 'Caladea-Bold'
-  }
-});
+
