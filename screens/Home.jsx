@@ -15,6 +15,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import Data from "./Data";
 import { Ionicons } from "@expo/vector-icons";
+import AddFrorm from "../component/AddFrorm";
 
 let fontLoader = () => {
   return Font.loadAsync({
@@ -45,7 +46,14 @@ const Home = ({ navigation }) => {
 
     prepare();
   }, []);
-
+ function handleFormData(newReviews) {
+    newReviews.id = Date.now();
+    console.log(newReviews.id)
+    setData((oldval)=>{
+      return [...oldval, newReviews]
+    })
+    setToggle(false)
+}
   const onLayoutRootView = useCallback(async () => {
     if (isloaded) {
       // This tells the splash screen to hide immediately! If we call this after
@@ -66,11 +74,13 @@ const Home = ({ navigation }) => {
       <View>
         <Modal visible={toggle} animationType="slide">
           <View style={styles.modalView}>
-          <Ionicons name="close-circle-sharp" size={24} color="black" onPress={()=> setToggle(false)} />
-            <Text>Hello</Text>
+          <Ionicons style={{textAlign: 'center', marginTop: 30}} name="close-circle-sharp" size={24} color="black" onPress={()=> setToggle(false)} />
+            <Text style={{textAlign: 'center', marginTop: 30, fontSize: 20}}>Share your Rating</Text>
+            <AddFrorm handleFormData={handleFormData} />
           </View>
         </Modal>
-      </View>
+        </View>
+      
       <FlatList
         data={data}
         renderItem={({ item }) => (
@@ -80,6 +90,7 @@ const Home = ({ navigation }) => {
                 navigation.navigate("Reviewdetails", {
                   id: item.id,
                   name: item.name,
+                  dataState: data
                 })
               }
             >
@@ -90,7 +101,7 @@ const Home = ({ navigation }) => {
             </Pressable>
           </View>
         )}
-        key={({ item }) => item.key}
+        key={({ item }) => item.id}
       />
     </View>
   );
@@ -116,11 +127,9 @@ const styles = StyleSheet.create({
   },
   modalView: {
     flex: 1,
-    marginTop: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 5,
+    marginVertical: 30
   },
 });

@@ -4,11 +4,9 @@ import { globalStyles } from '../styles/global'
 import Data from './Data'
 const RevewDetails = ({navigation, route}) => {
   const [data, setData] = useState(Data)
-  const {id} = route.params
-  useEffect(()=>{
-   
-  },[])
-  const filterdata = data.filter((item)=>{
+  const {id, dataState} = route.params
+ 
+  const filterdata = dataState.filter((item)=>{
     return item.id == id
   })
 
@@ -28,7 +26,7 @@ const RevewDetails = ({navigation, route}) => {
               
             </View>
         </View>
-      )} key={({item})=>(item.key)} />
+      )} key={({item})=>(item.id)} />
       <Button title="Go Back" onPress={()=> navigation.goBack()} />
     </View>
   )

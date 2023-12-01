@@ -6,9 +6,16 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 25
+        marginTop: 30
     },
     textStyles: {
         fontFamily: 'Caladea-Bold'
+    },
+    input: {
+        borderWidth: 1,
+        padding: 20,
+        margin: 5,
+        borderRadius: 4,
+        borderColor: 'grey'
     }
 })
