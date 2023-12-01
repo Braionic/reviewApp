@@ -6,6 +6,7 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        marginVertical: 25
     },
     textStyles: {
         fontFamily: 'Caladea-Bold'
