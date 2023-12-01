@@ -7,6 +7,7 @@ import {
   Button,
   DrawerActions,
   Modal,
+  Keyboard,
 } from "react-native";
 import { useState, useCallback, useEffect, useLayoutEffect } from "react";
 import React from "react";
@@ -16,6 +17,7 @@ import * as Font from "expo-font";
 import Data from "./Data";
 import { Ionicons } from "@expo/vector-icons";
 import AddFrorm from "../component/AddFrorm";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 let fontLoader = () => {
   return Font.loadAsync({
@@ -26,7 +28,7 @@ let fontLoader = () => {
 const Home = ({ navigation }) => {
   const [isloaded, setIsloaded] = useState(false);
   const [data, setData] = useState(Data);
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     async function prepare() {
@@ -46,14 +48,14 @@ const Home = ({ navigation }) => {
 
     prepare();
   }, []);
- function handleFormData(newReviews) {
+  function handleFormData(newReviews) {
     newReviews.id = Date.now();
-    console.log(newReviews.id)
-    setData((oldval)=>{
-      return [...oldval, newReviews]
-    })
+    console.log(newReviews.id);
+    setData((oldval) => {
+      return [...oldval, newReviews];
+    });
     setToggle(false)
-}
+  }
   const onLayoutRootView = useCallback(async () => {
     if (isloaded) {
       // This tells the splash screen to hide immediately! If we call this after
@@ -70,17 +72,36 @@ const Home = ({ navigation }) => {
   }
   return (
     <View style={globalStyles.container} onLayout={onLayoutRootView}>
-      <Ionicons name="add-circle" size={24} color="black" onPress={()=> setToggle(true)} />
+      <Ionicons
+        name="add-circle"
+        size={24}
+        color="black"
+        onPress={() => setToggle(true)}
+      />
+
       <View>
         <Modal visible={toggle} animationType="slide">
           <View style={styles.modalView}>
-          <Ionicons style={{textAlign: 'center', marginTop: 30}} name="close-circle-sharp" size={24} color="black" onPress={()=> setToggle(false)} />
-            <Text style={{textAlign: 'center', marginTop: 30, fontSize: 20}}>Share your Rating</Text>
-            <AddFrorm handleFormData={handleFormData} />
+            <Ionicons
+              style={{ textAlign: "center", marginTop: 30 }}
+              name="close-circle-sharp"
+              size={24}
+              color="black"
+              onPress={() => setToggle(false)}
+            />
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+              <Text
+                style={{ textAlign: "center", marginTop: 30, fontSize: 20 }}
+              >
+                Share your Rating
+              </Text>
+
+              <AddFrorm handleFormData={handleFormData} />
+            </TouchableWithoutFeedback>
           </View>
         </Modal>
-        </View>
-      
+      </View>
+
       <FlatList
         data={data}
         renderItem={({ item }) => (
@@ -90,7 +111,7 @@ const Home = ({ navigation }) => {
                 navigation.navigate("Reviewdetails", {
                   id: item.id,
                   name: item.name,
-                  dataState: data
+                  dataState: data,
                 })
               }
             >
@@ -130,6 +151,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 5,
-    marginVertical: 30
+    marginVertical: 30,
   },
 });

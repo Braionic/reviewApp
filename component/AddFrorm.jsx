@@ -7,7 +7,8 @@ import { globalStyles } from '../styles/global'
 export default function AddFrorm({handleFormData}) {
   return (
     <View style={styles.container}>
-     <Formik onSubmit={(values)=>(
+     <Formik onSubmit={(values, actions)=>(
+        actions.resetForm(),
         handleFormData(values)
      )} initialValues={{name: '', title: '', body: '', rating: '', id: ''}}>
         {(props)=>(
