@@ -8,6 +8,8 @@ import {
   DrawerActions,
   Modal,
   Keyboard,
+  Image,
+  TouchableWithoutFeedback
 } from "react-native";
 import { useState, useCallback, useEffect, useLayoutEffect } from "react";
 import React from "react";
@@ -17,7 +19,7 @@ import * as Font from "expo-font";
 import Data from "./Data";
 import { Ionicons } from "@expo/vector-icons";
 import AddFrorm from "../component/AddFrorm";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { iconRating } from "../styles/global";
 
 let fontLoader = () => {
   return Font.loadAsync({
@@ -80,7 +82,9 @@ const Home = ({ navigation }) => {
       />
 
       <View>
+      
         <Modal visible={toggle} animationType="slide">
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.modalView}>
             <Ionicons
               style={{ textAlign: "center", marginTop: 30 }}
@@ -89,7 +93,7 @@ const Home = ({ navigation }) => {
               color="black"
               onPress={() => setToggle(false)}
             />
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            
               <Text
                 style={{ textAlign: "center", marginTop: 30, fontSize: 20 }}
               >
@@ -97,9 +101,11 @@ const Home = ({ navigation }) => {
               </Text>
 
               <AddFrorm handleFormData={handleFormData} />
-            </TouchableWithoutFeedback>
+            
           </View>
+          </TouchableWithoutFeedback>
         </Modal>
+        
       </View>
 
       <FlatList
@@ -117,7 +123,11 @@ const Home = ({ navigation }) => {
             >
               <View style={styles.reviewsContainer}>
                 <Text style={styles.reviewRating}>{item.rating}</Text>
-                <Text>{item.title}</Text>
+                <View>
+                  <Text>{item.title}</Text>
+                  <Image source={iconRating[item.rating]} />
+                </View>
+                
               </View>
             </Pressable>
           </View>

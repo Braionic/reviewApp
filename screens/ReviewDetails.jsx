@@ -1,6 +1,6 @@
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native'
+import { View, Text, Button, FlatList, StyleSheet, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { globalStyles } from '../styles/global'
+import { globalStyles, iconRating } from '../styles/global'
 import Data from './Data'
 const RevewDetails = ({navigation, route}) => {
   const [data, setData] = useState(Data)
@@ -23,7 +23,7 @@ const RevewDetails = ({navigation, route}) => {
                 <Text>{item.title}</Text>
 
                 <Text style={styles.reviewBody}>{item.body}</Text>
-              
+              <Image source={iconRating[item.rating]} />
             </View>
         </View>
       )} key={({item})=>(item.id)} />
